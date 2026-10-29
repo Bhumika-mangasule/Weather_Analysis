@@ -1,0 +1,11 @@
+flowchart TD
+  A[weather_data/weather.csv<br/>96,453 raw hourly rows] --> B[R: load data<br/>readr]
+  B --> C[R: clean data<br/>remove duplicates, fix dates,<br/>zero values to NA]
+  C --> D[R: statistics, correlations,<br/>trends]
+  D --> E[ggplot2 PNG plots<br/>plots/]
+  D --> F[jsonlite export<br/>results/*.json + cleaned CSV]
+  F --> G[JavaScript fetch<br/>frontend/script.js]
+  G --> H[Dashboard cards<br/>and tables]
+  G --> I[Chart.js<br/>interactive charts]
+  H --> J[Browser: localhost:8000]
+  I --> J

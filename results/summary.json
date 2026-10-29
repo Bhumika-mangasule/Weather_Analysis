@@ -1,0 +1,290 @@
+{
+  "generated_by": "Python reference script (pandas)",
+  "generated_at": "2026-10-29 09:13:37",
+  "dataset": {
+    "file": "weather_data/weather.csv",
+    "rows_raw": 96453,
+    "rows_clean": 96429,
+    "duplicates_removed": 24,
+    "columns": 12,
+    "column_names": [
+      "Formatted Date",
+      "Summary",
+      "Precip Type",
+      "Temperature (C)",
+      "Apparent Temperature (C)",
+      "Humidity",
+      "Wind Speed (km/h)",
+      "Wind Bearing (degrees)",
+      "Visibility (km)",
+      "Loud Cover",
+      "Pressure (millibars)",
+      "Daily Summary"
+    ],
+    "date_start": "2006-01-01",
+    "date_end": "2016-12-31",
+    "rainfall_available": false
+  },
+  "cards": {
+    "avg_temperature": 11.9297,
+    "max_temperature": 39.9056,
+    "min_temperature": -21.8222,
+    "avg_humidity": 0.7351,
+    "avg_wind_speed": 10.8125,
+    "total_rainfall": null,
+    "total_records": 96429
+  },
+  "missing_values": [
+    {
+      "column": "Formatted Date",
+      "missing_in_raw_file": 0,
+      "invalid_zeros_found": 0,
+      "missing_after_cleaning": 0,
+      "treatment": "No problem found"
+    },
+    {
+      "column": "Summary",
+      "missing_in_raw_file": 0,
+      "invalid_zeros_found": 0,
+      "missing_after_cleaning": 0,
+      "treatment": "No problem found"
+    },
+    {
+      "column": "Precip Type",
+      "missing_in_raw_file": 517,
+      "invalid_zeros_found": 0,
+      "missing_after_cleaning": 0,
+      "treatment": "Missing precipitation type -> filled with 'unknown'"
+    },
+    {
+      "column": "Temperature (C)",
+      "missing_in_raw_file": 0,
+      "invalid_zeros_found": 0,
+      "missing_after_cleaning": 0,
+      "treatment": "No problem found"
+    },
+    {
+      "column": "Apparent Temperature (C)",
+      "missing_in_raw_file": 0,
+      "invalid_zeros_found": 0,
+      "missing_after_cleaning": 0,
+      "treatment": "No problem found"
+    },
+    {
+      "column": "Humidity",
+      "missing_in_raw_file": 0,
+      "invalid_zeros_found": 22,
+      "missing_after_cleaning": 22,
+      "treatment": "Zeros are impossible humidity values -> set to missing (NA)"
+    },
+    {
+      "column": "Wind Speed (km/h)",
+      "missing_in_raw_file": 0,
+      "invalid_zeros_found": 0,
+      "missing_after_cleaning": 0,
+      "treatment": "No problem found"
+    },
+    {
+      "column": "Wind Bearing (degrees)",
+      "missing_in_raw_file": 0,
+      "invalid_zeros_found": 0,
+      "missing_after_cleaning": 0,
+      "treatment": "No problem found"
+    },
+    {
+      "column": "Visibility (km)",
+      "missing_in_raw_file": 0,
+      "invalid_zeros_found": 0,
+      "missing_after_cleaning": 0,
+      "treatment": "No problem found"
+    },
+    {
+      "column": "Loud Cover",
+      "missing_in_raw_file": 0,
+      "invalid_zeros_found": 0,
+      "missing_after_cleaning": 0,
+      "treatment": "Every value is 0 (no information) -> kept in file, excluded from statistics"
+    },
+    {
+      "column": "Pressure (millibars)",
+      "missing_in_raw_file": 0,
+      "invalid_zeros_found": 1288,
+      "missing_after_cleaning": 1288,
+      "treatment": "Zeros are impossible pressure values -> set to missing (NA)"
+    },
+    {
+      "column": "Daily Summary",
+      "missing_in_raw_file": 0,
+      "invalid_zeros_found": 0,
+      "missing_after_cleaning": 0,
+      "treatment": "No problem found"
+    }
+  ],
+  "statistics": [
+    {
+      "variable": "Temperature (C)",
+      "n": 96429,
+      "mean": 11.9297,
+      "median": 12.0,
+      "mode": 7.2,
+      "sd": 9.5505,
+      "variance": 91.2119,
+      "min": -21.8222,
+      "max": 39.9056
+    },
+    {
+      "variable": "Apparent Temperature (C)",
+      "n": 96429,
+      "mean": 10.8517,
+      "median": 12.0,
+      "mode": 17.2,
+      "sd": 10.6957,
+      "variance": 114.3989,
+      "min": -27.7167,
+      "max": 39.3444
+    },
+    {
+      "variable": "Humidity",
+      "n": 96407,
+      "mean": 0.7351,
+      "median": 0.78,
+      "mode": 0.93,
+      "sd": 0.1952,
+      "variance": 0.0381,
+      "min": 0.12,
+      "max": 1.0
+    },
+    {
+      "variable": "Wind Speed (km/h)",
+      "n": 96429,
+      "mean": 10.8125,
+      "median": 9.9659,
+      "mode": 3.2,
+      "sd": 6.9133,
+      "variance": 47.7943,
+      "min": 0.0,
+      "max": 63.8526
+    },
+    {
+      "variable": "Wind Bearing (degrees)",
+      "n": 96429,
+      "mean": 187.4975,
+      "median": 180.0,
+      "mode": 0.0,
+      "sd": 107.3764,
+      "variance": 11529.6961,
+      "min": 0.0,
+      "max": 359.0
+    },
+    {
+      "variable": "Visibility (km)",
+      "n": 96429,
+      "mean": 10.3472,
+      "median": 10.0464,
+      "mode": 10.0,
+      "sd": 4.1925,
+      "variance": 17.5775,
+      "min": 0.0,
+      "max": 16.1
+    },
+    {
+      "variable": "Pressure (millibars)",
+      "n": 95141,
+      "mean": 1016.8145,
+      "median": 1016.55,
+      "mode": 1015.0,
+      "sd": 7.7793,
+      "variance": 60.517,
+      "min": 973.78,
+      "max": 1046.38
+    }
+  ],
+  "correlations": {
+    "variables": [
+      "Temperature (C)",
+      "Apparent Temperature (C)",
+      "Humidity",
+      "Wind Speed (km/h)",
+      "Wind Bearing (degrees)",
+      "Visibility (km)",
+      "Pressure (millibars)"
+    ],
+    "matrix": [
+      [
+        1.0,
+        0.993,
+        -0.636,
+        0.009,
+        0.03,
+        0.393,
+        -0.31
+      ],
+      [
+        0.993,
+        1.0,
+        -0.606,
+        -0.056,
+        0.029,
+        0.382,
+        -0.288
+      ],
+      [
+        -0.636,
+        -0.606,
+        1.0,
+        -0.226,
+        0.0,
+        -0.371,
+        0.041
+      ],
+      [
+        0.009,
+        -0.056,
+        -0.226,
+        1.0,
+        0.104,
+        0.101,
+        -0.254
+      ],
+      [
+        0.03,
+        0.029,
+        0.0,
+        0.104,
+        1.0,
+        0.048,
+        -0.079
+      ],
+      [
+        0.393,
+        0.382,
+        -0.371,
+        0.101,
+        0.048,
+        1.0,
+        -0.166
+      ],
+      [
+        -0.31,
+        -0.288,
+        0.041,
+        -0.254,
+        -0.079,
+        -0.166,
+        1.0
+      ]
+    ]
+  },
+  "findings": [
+    "The cleaned dataset has 96,429 hourly records from 01 Jan 2006 to 31 Dec 2016.",
+    "Temperature averages 11.93 C (median 12.00 C) and ranges from -21.8 C to 39.9 C. The standard deviation is 9.55 C, so temperatures vary a lot through the year.",
+    "Jul is the hottest month on average (23.0 C) and Jan is the coldest (0.8 C).",
+    "Temperature and humidity have a moderate negative correlation (r = -0.64): warmer hours tend to be drier.",
+    "The strongest relationship (ignoring Temperature vs Apparent Temperature) is Temperature (C) vs Humidity (r = -0.64).",
+    "'Partly Cloudy' is the most common weather condition (32.9% of all records).",
+    "Rain is recorded in 85,200 hours and snow in 10,712 hours. Average temperature is 13.9 C during rain and -3.3 C during snow.",
+    "The warmest year on average was 2014 (12.53 C) and the coolest was 2010 (11.17 C).",
+    "Data quality: 1,288 pressure readings and 22 humidity readings were exactly 0, which is physically impossible, so they were treated as sensor errors and set to missing before calculating statistics.",
+    "The dataset has no rainfall-amount column, so total rainfall cannot be calculated. Only the precipitation type (rain / snow) is available."
+  ]
+}

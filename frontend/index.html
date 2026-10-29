@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weather Data Analysis System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== NAVIGATION BAR ===== -->
+  <header class="navbar">
+    <a class="brand" href="#home">&#9728;&#65039; Weather<span>Analysis</span></a>
+    <button id="menu-btn" class="menu-btn" aria-label="Open menu">&#9776;</button>
+    <nav id="nav-links" class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#analysis">Analysis</a>
+      <a href="#charts">Charts</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
+
+  <!-- Shown by script.js if the result files cannot be loaded -->
+  <div id="error-box" class="error-box" hidden></div>
+
+  <main>
+
+    <!-- ===== A. HOME ===== -->
+    <section id="home" class="hero">
+      <div class="hero-text">
+        <h1>Weather Data Analysis System</h1>
+        <p>
+          This project studies <b id="hero-records">hourly</b> weather records (<span id="hero-range">loading dates</span>).
+          The numbers are calculated in <b>R</b>, saved as JSON files, and shown here
+          as cards, tables and interactive charts.
+        </p>
+        <a class="btn" href="#dashboard">Explore Weather Data</a>
+      </div>
+      <div class="hero-banner" aria-hidden="true">
+        <span class="icon sun">&#9728;&#65039;</span>
+        <span class="icon cloud1">&#9729;&#65039;</span>
+        <span class="icon cloud2">&#9925;</span>
+        <span class="icon rain">&#127783;&#65039;</span>
+        <span class="icon snow">&#10052;&#65039;</span>
+        <span class="icon wind">&#127788;&#65039;</span>
+      </div>
+    </section>
+
+    <!-- ===== B. DASHBOARD ===== -->
+    <section id="dashboard" class="section">
+      <h2>Dashboard</h2>
+      <p class="muted">Each card is read from <code>results/summary.json</code>, which R creates from the dataset.</p>
+      <div class="cards">
+        <div class="card"><div class="card-icon">&#127777;&#65039;</div><div class="card-label">Average Temperature</div><div class="card-value" id="card-avg-temp">&hellip;</div></div>
+        <div class="card"><div class="card-icon">&#128293;</div><div class="card-label">Maximum Temperature</div><div class="card-value" id="card-max-temp">&hellip;</div></div>
+        <div class="card"><div class="card-icon">&#129482;</div><div class="card-label">Minimum Temperature</div><div class="card-value" id="card-min-temp">&hellip;</div></div>
+        <div class="card"><div class="card-icon">&#128167;</div><div class="card-label">Average Humidity</div><div class="card-value" id="card-avg-hum">&hellip;</div></div>
+        <div class="card"><div class="card-icon">&#127783;&#65039;</div><div class="card-label">Total Rainfall</div><div class="card-value" id="card-rain">&hellip;</div><div class="card-note" id="card-rain-note"></div></div>
+        <div class="card"><div class="card-icon">&#128202;</div><div class="card-label">Total Records</div><div class="card-value" id="card-records">&hellip;</div></div>
+      </div>
+      <p class="muted small" id="generated-by"></p>
+    </section>
+
+    <!-- ===== C. DATA ANALYSIS ===== -->
+    <section id="analysis" class="section alt">
+      <h2>Data Analysis</h2>
+
+      <div class="info-row">
+        <div><b id="info-records">&hellip;</b><span>records after cleaning</span></div>
+        <div><b id="info-columns">&hellip;</b><span>columns</span></div>
+        <div><b id="info-dates">&hellip;</b><span>date range</span></div>
+        <div><b id="info-dups">&hellip;</b><span>duplicate rows removed</span></div>
+      </div>
+
+      <h3>Key Findings</h3>
+      <p class="muted small">These sentences are written by the R script from the real results.</p>
+      <ul id="findings" class="findings"></ul>
+
+      <h3>Missing-Value Summary</h3>
+      <p class="muted small">&ldquo;Invalid zeros&rdquo; are values of 0 that cannot be real (for example, air pressure = 0).</p>
+      <div class="table-wrap"><table id="missing-table"></table></div>
+
+      <h3>Basic Statistics</h3>
+      <div class="table-wrap"><table id="stats-table"></table></div>
+
+      <h3>Correlation Between Variables</h3>
+      <p class="muted small">+1 = move together, &minus;1 = move in opposite directions, 0 = no linear relationship.</p>
+      <div class="table-wrap"><table id="corr-table"></table></div>
+
+      <h3>Dataset Preview</h3>
+      <div class="filters">
+        <input id="search-box" type="search" placeholder="Search the preview rows&hellip;">
+        <select id="column-select" aria-label="Column to search"></select>
+      </div>
+      <p class="muted small" id="preview-count"></p>
+      <div class="table-wrap tall"><table id="preview-table"></table></div>
+    </section>
+
+    <!-- ===== D. CHARTS ===== -->
+    <section id="charts" class="section">
+      <h2>Charts</h2>
+      <p class="muted">Hover over a chart to see exact values. Click legend items to hide or show a line.</p>
+      <div class="chart-grid">
+        <div class="chart-card wide">
+          <h3>1. Temperature Distribution</h3>
+          <p class="muted small">How many hours fall in each 2&deg;C temperature range.</p>
+          <div class="chart-box"><canvas id="chart-hist"></canvas></div>
+        </div>
+        <div class="chart-card wide">
+          <h3>2. Temperature Trend Over Time</h3>
+          <p class="muted small">Average temperature of each month, 2006&ndash;2016.</p>
+          <div class="chart-box"><canvas id="chart-trend"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h3>3. Weather Condition Comparison</h3>
+          <select id="cond-metric" class="chart-select">
+            <option value="counts">Number of hours</option>
+            <option value="avg_temperature">Average temperature (&deg;C)</option>
+            <option value="avg_humidity">Average humidity</option>
+          </select>
+          <div class="chart-box"><canvas id="chart-cond"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h3>4. Temperature vs Humidity</h3>
+          <p class="muted small" id="scatter-note"></p>
+          <div class="chart-box"><canvas id="chart-scatter"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h3>5. Precipitation Comparison</h3>
+          <p class="muted small" id="rain-note"></p>
+          <select id="precip-metric" class="chart-select">
+            <option value="counts">Number of hours</option>
+            <option value="avg_temperature">Average temperature (&deg;C)</option>
+            <option value="avg_humidity">Average humidity</option>
+            <option value="avg_wind_speed">Average wind speed (km/h)</option>
+          </select>
+          <div class="chart-box"><canvas id="chart-precip"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h3>6. Seasonal Pattern</h3>
+          <p class="muted small">Average temperature and humidity for each month of the year.</p>
+          <div class="chart-box"><canvas id="chart-season"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== E. ABOUT ===== -->
+    <section id="about" class="section alt">
+      <h2>About This Project</h2>
+      <div class="about-grid">
+        <div class="about-card">
+          <h3>Introduction</h3>
+          <p>Weather data is collected every hour, so it is too large to read by eye. This project uses R to clean and summarise a
+          weather dataset (<span id="about-rows">hourly records</span>) and a web dashboard to present the results clearly.</p>
+        </div>
+        <div class="about-card">
+          <h3>Objectives</h3>
+          <ul>
+            <li>Clean the dataset (duplicates, impossible values, dates).</li>
+            <li>Calculate mean, median, mode, spread and correlations.</li>
+            <li>Find trends and seasonal patterns.</li>
+            <li>Show the real results in an interactive dashboard.</li>
+          </ul>
+        </div>
+        <div class="about-card">
+          <h3>Technologies Used</h3>
+          <ul>
+            <li><b>R</b> (readr, dplyr, lubridate, ggplot2, jsonlite) &ndash; analysis</li>
+            <li><b>HTML</b> &ndash; page structure</li>
+            <li><b>CSS</b> &ndash; styling and responsive layout</li>
+            <li><b>JavaScript</b> &ndash; loads the JSON files and builds tables</li>
+            <li><b>Chart.js</b> &ndash; interactive charts</li>
+          </ul>
+        </div>
+        <div class="about-card">
+          <h3>Methodology</h3>
+          <ol>
+            <li>Load <code>weather.csv</code> in R.</li>
+            <li>Check missing values and duplicates, then clean.</li>
+            <li>Calculate statistics, correlations and trends.</li>
+            <li>Export results to <code>summary.json</code> and <code>chart_data.json</code>.</li>
+            <li>JavaScript reads those files and draws the dashboard.</li>
+          </ol>
+        </div>
+        <div class="about-card wide">
+          <h3>Conclusion</h3>
+          <p id="conclusion">Loading conclusion&hellip;</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">Weather Data Analysis and Visualization System Using R and Web Technologies</footer>
+
+  <!-- Chart.js from the internet. If it fails (no internet), try a local copy at frontend/lib/chart.umd.min.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script>window.Chart || document.write('<script src="lib/chart.umd.min.js"><\/script>');</script>
+  <script src="script.js"></script>
+</body>
+</html>
